@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model user {
+  id        String     @id @default(uuid())
+  name      String
+  email     String     @unique
+  password  String
+  analyses  Analysis[]
+  documents Document[]
+}
+
+model Analysis {
+  id           String     @id @default(uuid())
+  companyName  String
+  source       String     // "upload" | "url" | "search"
+  sourceUrl    String?
+  overallScore Int
+  specificity  Int
+  evidence     Int
+  sentiment    Int
+  operational  Int
+  claims       Json       // array of { text, type, confidence }
+  strengths    Json       // array of strings
+  weaknesses   Json       // array of strings
+  summary      String
+  rawText      String?
+  createdAt    DateTime   @default(now())
+  userId       String?
+  user         user?      @relation(fields: [userId], references: [id])
+  documents    Document[]
+}
+
+model Document {
+  id         String   @id @default(uuid())
+  userId     String?
+  filename   String
+  filePath   String
+  mimeType   String
+  analysisId String?
+  createdAt  DateTime @default(now())
+  user       user?    @relation(fields: [userId], references: [id])
+  analysis   Analysis? @relation(fields: [analysisId], references: [id])
+}

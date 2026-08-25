@@ -1,0 +1,19 @@
+node_modules
+
+# Keep environment variables out of version control (.env.example is committed)
+.env
+.env.*
+!.env.example
+
+# Build output
+dist
+
+# Generated Prisma client (recreated by `npm run prisma:generate`)
+/generated/prisma
+
+# Locally uploaded files
+uploads/*
+!uploads/.gitkeep
+
+.DS_Store
+*.log

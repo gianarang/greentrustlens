@@ -1,0 +1,21 @@
+# Dependencies are installed inside the image (correct platform binaries)
+node_modules
+
+# Build output is produced inside the image
+dist
+generated
+
+# Secrets must come from Northflank environment variables, never the image
+.env
+.env.*
+!.env.example
+
+# Local-only files
+uploads
+.git
+.gitignore
+.DS_Store
+*.log
+npm-debug.log*
+Dockerfile
+.dockerignore

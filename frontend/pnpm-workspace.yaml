@@ -1,0 +1,7 @@
+# Build-script approvals for pnpm (Next.js 16 verifies this during builds).
+# Neither package needs to run install scripts here:
+#   - sharp: image optimization is disabled (next.config.mjs → images.unoptimized)
+#   - msw:   dev-only request mocking, not used at build/runtime
+allowBuilds:
+  msw: false
+  sharp: false
